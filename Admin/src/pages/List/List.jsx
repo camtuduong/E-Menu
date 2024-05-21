@@ -2,28 +2,33 @@ import React, { useEffect, useState } from "react";
 import "./List.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-const List = ({ url }) => {
+import { removeFood } from "../../Api/api";
+import { Link } from "react-router-dom";
+const List = () => {
+  const url = "http://localhost:9000";
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
-    const response = await axios.get(`${url}/api/food.list`);
-    if (response.data.success) {
-      setList(response.data.data);
+    const response = await axios.get(`${url}/api/food`);
+    console.log(response);
+    if (response.status == 200) {
+      setList(response.data);
     } else {
-      toast.err("Error");
+      toast.error(response.data.message);
     }
   };
 
-  const removedFood = async (foodId) => {
-    const response = await axios.post(`${url}/api/food/remove`, { id: foodId });
-    await fetchList();
-    if (response.data.success) {
-      toast.success(response.data.message);
-    } else {
-      toast.error("Error");
+  const removeHandler = async (foodId) => {
+    try {
+      const response = await removeFood(foodId);
+      console.log(response);
+      toast.success("Xóa thành công");
+      fetchList(); // Lấy danh sách mới sau khi xóa thành công
+    } catch (error) {
+      console.log(error);
+      toast.error("Đã xảy ra lỗi khi xóa");
     }
   };
-
   useEffect(() => {
     fetchList();
   }, []);
@@ -37,18 +42,28 @@ const List = ({ url }) => {
           <b>Name</b>
           <b>Category</b>
           <b>Price</b>
+          <b>Description</b>
           <b>Action</b>
         </div>
         {list.map((item, index) => {
           return (
             <div key={index} className="list-table-format">
-              <img src={`${url}/images/` + item.image} alt="" />
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>${item.price}</p>
-              <p onClick={() => removedFood(item._id)} className="cursor">
-                X
-              </p>
+              <img src={new URL(item.Image, url).toString()} alt="" />
+              <p>{item.Name}</p>
+              <p>{item.CategoryId}</p>
+              <p>${item.Price}</p>
+              <p>{item.Description}</p>
+              <div>
+                <button
+                  onClick={() => removeHandler(item.id)}
+                  className="cursor"
+                >
+                  X
+                </button>
+                <Link to={"/update/" + item.id}>
+                  <button className="cursor">Update</button>
+                </Link>
+              </div>
             </div>
           );
         })}

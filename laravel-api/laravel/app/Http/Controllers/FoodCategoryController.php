@@ -10,4 +10,5 @@ class FoodCategoryController extends Controller
     public function foodCategory($id=null){
         return $id ? Category::find($id) : Category::all();
     }
+
 }

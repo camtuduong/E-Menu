@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./Add.css";
 import { assets } from "../../assets/assets";
-import axios from "axios";
 import { toast } from "react-toastify";
-const Add = ({ url }) => {
+import { addFood } from "../../Api/api";
+const Add = () => {
   const [image, setImage] = useState(false);
   const [data, setData] = useState({
     name: "",
     description: "",
     price: "",
-    category: "Salad",
+    categoryId: "1",
   });
 
   const onChangeHandler = (event) => {
@@ -20,25 +20,31 @@ const Add = ({ url }) => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+
     const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("price", Number(data.price));
-    formData.append("category", data.category);
-    formData.append("image", image);
-    //api post add food
-    const response = await axios.post(`${url}/api/food/add`, formData);
-    if (response.data.success) {
-      setData({
-        name: "",
-        description: "",
-        price: "",
-        category: "Salad",
-      });
-      setImage(false);
-      toast.success(response.data.message);
-    } else {
-      toast.error(response.data.message);
+    formData.append("Name", data.name);
+    formData.append("Description", data.description);
+    formData.append("Price", Number(data.price));
+    formData.append("CategoryId", data.categoryId);
+    formData.append("Image", image);
+
+    try {
+      const response = await addFood(formData);
+      if (response.status === 200) {
+        setData({
+          name: "",
+          description: "",
+          price: "",
+          categoryId: "1",
+        });
+        setImage(null);
+        toast.success("Add success");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error occurred while adding food.");
     }
   };
 
@@ -56,13 +62,13 @@ const Add = ({ url }) => {
           <input
             onChange={(e) => setImage(e.target.files[0])}
             type="file"
+            value={data.image}
             id="image"
             hidden
-            required
           />
         </div>
         <div className="add-product-name flex-col">
-          <p>Product name</p>
+          <p>Food name</p>
           <input
             onChange={onChangeHandler}
             value={data.name}
@@ -73,7 +79,7 @@ const Add = ({ url }) => {
           />
         </div>
         <div className="add-product-description flex-col">
-          <p>Product description</p>
+          <p>Food description</p>
           <textarea
             onChange={onChangeHandler}
             value={data.description}
@@ -86,20 +92,20 @@ const Add = ({ url }) => {
         </div>
         <div className="add-category-price">
           <div className="add-category flex-col">
-            <p>Product category</p>
-            <select onChange={onChangeHandler} name="category" id="">
-              <option value="Salad">Salad</option>
-              <option value="Rolls">Rolls</option>
-              <option value="Desert">Desert</option>
-              <option value="Sandwich">Sandwich</option>
-              <option value="Cake">Cake</option>
-              <option value="Pure Veg">Pure Veg</option>
-              <option value="Pasta">Pasta</option>
-              <option value="Noodles">Noodles</option>
+            <p>Food category</p>
+            <select onChange={onChangeHandler} name="categoryId" id="">
+              <option value="1">Salad</option>
+              <option value="2">Rolls</option>
+              <option value="3">Desert</option>
+              <option value="4">Sandwich</option>
+              <option value="5">Cake</option>
+              <option value="6">Pure Veg</option>
+              <option value="7">Pasta</option>
+              <option value="8">Noodles</option>
             </select>
           </div>
           <div className="add-price flex-col">
-            <p>Product Price</p>
+            <p>Food Price</p>
             <input
               onChange={onChangeHandler}
               value={data.price}

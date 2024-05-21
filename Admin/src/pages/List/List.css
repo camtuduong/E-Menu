@@ -1,6 +1,6 @@
 .list-table-format {
   display: grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
+  grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 2fr 1fr;
   align-items: center;
   gap: 10px;
   padding: 12px 15px;
@@ -23,6 +23,11 @@
     display: none;
   }
 }
+
+.cursor:hover {
+  background-color: tomato;
+}
 .cursor {
-  cursor: pointer;
+  border-radius: 5px;
+  margin: 0px 15px;
 }
