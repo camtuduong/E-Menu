@@ -1,33 +1,75 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FoodItem.css";
 import { assets } from "../../assets/assets";
-import { StoreContext } from "../../context/StoreContext";
+import { addToCart, removeFromCart, searchCart } from "../../Api/api";
 const FoodItem = ({ id, name, price, description, image }) => {
-  // const [itemCount, setItemCount] = useState(0);
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const [data, setData] = useState([]);
+  const url = "http://localhost:9000";
+
+  //cai de mai lam
+  // api cart tu id_item sau do xem coi quantity co chua neu co thi hien remove khong thi chi hien cai add thoi
+  // them so luong quantity cap nhat cho uI coi nua
+  // lam phan hien thi ben cart nua
+
+  const handleAddToCart = async () => {
+    try {
+      const response = await addToCart(id);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveFromCart = async () => {
+    try {
+      const response = await removeFromCart(id);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchList = async () => {
+    const response = await searchCart(id);
+    console.log(response);
+    if (response.status == 200) {
+      setData(response.data);
+    } else {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchList();
+  }, []);
+
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img className="food-item-image" src={image} alt="" />
-        {!cartItems[id] ? (
-          <img
-            className="add"
-            onClick={() => addToCart(id)}
-            src={assets.add_icon_white}
-            alt=""
-          />
+        <img
+          className="food-item-image"
+          src={new URL(image, url).toString()}
+          alt=""
+        />
+        {data ? (
+          <div className="food-item-counter">
+            <img
+              onClick={handleRemoveFromCart}
+              src={assets.remove_icon_red}
+              alt="Remove"
+            />
+            <p>{data.quantity}</p>
+            <img
+              onClick={handleAddToCart}
+              src={assets.add_icon_green}
+              alt="Add"
+            />
+          </div>
         ) : (
           <div className="food-item-counter">
             <img
-              onClick={() => removeFromCart(id)}
-              src={assets.remove_icon_red}
-              alt=""
-            />
-            <p>{cartItems[id]}</p>
-            <img
-              onClick={() => addToCart(id)}
-              src={assets.add_icon_green}
-              alt=""
+              onClick={handleAddToCart}
+              src={assets.add_icon_white}
+              alt="Add"
             />
           </div>
         )}

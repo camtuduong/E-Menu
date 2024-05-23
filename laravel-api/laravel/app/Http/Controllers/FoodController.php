@@ -84,4 +84,8 @@ class FoodController extends Controller
     function searchFood($name){
         return Food::where("name",$name)->get();
     }
+
+    function searchFoodByCategory($categoryId){
+        return Food::where("categoryId",$categoryId)->get();
+    }
 }

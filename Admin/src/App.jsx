@@ -7,6 +7,8 @@ import Orders from "./pages/Orders/Orders";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Update from "./pages/Update/Update";
+import ListCategory from "./pages/List/ListCategory";
+import UpdateCategory from "./pages/Update/UpdateCategory";
 function App() {
   return (
     <div>
@@ -19,7 +21,13 @@ function App() {
           <Route path="/add" element={<Add />} />
           <Route path="/list" element={<List />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/list-category" element={<ListCategory />} />
           <Route exact path="update/:id" element={<Update />} />
+          <Route
+            exact
+            path="update-category/:id"
+            element={<UpdateCategory />}
+          />
         </Routes>
       </div>
     </div>

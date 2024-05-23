@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FoodController;
@@ -18,8 +19,8 @@ use Illuminate\Http\Response;
 */
 //make health check route
 Route::get('/users/{id?}', [UserController::class, 'userData']);
-Route::get('/category/{id?}', [FoodCategoryController::class, 'foodCategory']);
 
+//food api
 Route::get('storage/food/{filename}', function ($filename) {
     $path = storage_path('app/public/food/' . $filename);
 
@@ -38,3 +39,15 @@ Route::post('/add-food', [FoodController::class, 'addFood']);
 Route::put('/update-food/{id}', [FoodController::class, 'updateFood']);
 Route::delete('/remove-food/{id}', [FoodController::class, 'removeFood']);
 Route::get('search-food/{name}',[FoodController::class, 'searchFood']);
+Route::get('search-food-categoryId/{categoryId}',[FoodController::class, 'searchFoodByCategory']);
+
+//category api
+Route::get('/category/{id?}', [FoodCategoryController::class, 'foodCategory']);
+Route::put('/update-category/{id}', [FoodCategoryController::class, 'updateCategory']);
+
+
+//cart
+Route::get('/cart/{id?}', [CartController::class,'viewCart']);
+Route::post('/add-cart/{itemId}', [CartController::class,'addToCart']);
+Route::delete('/remove-cart/{itemId}', [CartController::class,'removeFromCart']);
+Route::get('/search-cart/{itemId}', [CartController::class,'searchCart']);

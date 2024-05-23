@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./ExploreMenu.css";
-import { menu_list } from "../../assets/assets";
-const ExploreMenu = ({ category, setCategory }) => {
+import axios from "axios";
+const ExploreMenu = ({ categoryId, setCategoryId }) => {
   const [data, setData] = useState([]);
+  const url = "http://localhost:9000";
+
+  const fetchList = async () => {
+    const response = await axios.get(`${url}/api/category`);
+    console.log(response);
+    if (response.status == 200) {
+      setData(response.data);
+    } else {
+      console.log(err);
+    }
+  };
   useEffect(() => {
-    fetch("http://localhost:9000/api/category")
-      .then((res) => res.json())
-      .then((data) => setData(data))
-      .catch((err) => console.log(err));
+    fetchList();
   }, []);
+
   return (
     <div className="explore-menu" id="explore-menu">
       <div className="h1">Explore our menu</div>
@@ -18,37 +27,18 @@ const ExploreMenu = ({ category, setCategory }) => {
         quasi accusamus magnam corrupti
       </p>
       <div className="explore-menu-list">
-        {/* {menu_list.map((item, index) => {
-          return (
-            <div
-              onClick={() =>
-                setCategory((prev) =>
-                  prev === item.menu_name ? "All" : item.menu_name
-                )
-              }
-              key={index}
-              className="explore-menu-list-item"
-            >
-              <img
-                className={category === item.menu_name ? "active" : ""}
-                src={item.menu_image}
-                alt=""
-              />
-              <p>{item.menu_name}</p>
-            </div>
-          );
-        })} */}
         {data.map((item, index) => (
           <div
-            onClick={() =>
-              setCategory((prev) => (prev === item.name ? "All" : item.name))
-            }
+            onClick={() => {
+              setCategoryId((prev) => (prev === item.id ? "All" : item.id));
+              console.log(item.id);
+            }}
             key={index}
             className="explore-menu-list-item"
           >
             <img
-              className={category === item.name ? "active" : ""}
-              src={item.image}
+              className={categoryId === item.id ? "active" : ""}
+              src={new URL(item.image, url).toString()}
               alt=""
             />
             <p>{item.name}</p>

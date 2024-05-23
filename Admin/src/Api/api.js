@@ -52,3 +52,21 @@ function removeFood(foodId) {
 }
 
 export { removeFood };
+
+function updateCategory(formData, categoryId) {
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  const apiUrl = `${API_URL}/api/update-category/${categoryId}`;
+  const params = new URLSearchParams();
+  params.append("_method", "put");
+
+  return axios.post(apiUrl, formData, { ...config, params }).catch((error) => {
+    // console.error(error);
+    throw error;
+  });
+}
+export { updateCategory };
