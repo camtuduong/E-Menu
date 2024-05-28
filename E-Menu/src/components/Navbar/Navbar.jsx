@@ -9,7 +9,7 @@ const Navbar = () => {
   const { getTotalCartAmount } = useContext(StoreContext);
   return (
     <div className="navbar">
-      <Link to="/">
+      <Link to="/home">
         <img src={assets.logo} alt="" className="logo" />
       </Link>
       <ul className="navbar-menu">

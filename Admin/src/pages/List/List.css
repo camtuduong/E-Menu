@@ -24,10 +24,19 @@
   }
 }
 
-.cursor:hover {
+.cursor {
+  border-radius: 5px;
+  margin: 0px 15px;
+  padding: 10px 20px;
+  color: white;
   background-color: tomato;
 }
-.cursor {
+
+.btn-update {
+  background-color: yellowgreen;
+  color: white;
+}
+.btn-update {
   border-radius: 5px;
   margin: 0px 15px;
   padding: 10px;

@@ -11,7 +11,7 @@ class FoodController extends Controller
         return $id ? Food::find($id) : Food::all();
     }
 
-    function addFood(Request $req)
+    public function addFood(Request $req)
     {
 
         $food = new Food();

@@ -23,8 +23,9 @@
   background-color: red;
 }
 .cart-bottom {
-  margin-top: 80px;
+  margin-top: 70px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   gap: max(12vw, 20vw);
 }
@@ -42,13 +43,15 @@
 .cart-total hr {
   margin: 10px 0px;
 }
-.cart-total button {
+.cart-promocode .order {
+  margin-top: 80px;
   border: none;
   color: white;
   background-color: tomato;
   width: max(15vw, 200px);
   padding: 12px 0px;
   cursor: pointer;
+  border-radius: 4px;
 }
 .cart-promocode {
   flex: 1;

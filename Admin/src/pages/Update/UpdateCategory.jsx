@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./UpdateCategory.css";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { assets } from "../../assets/assets";

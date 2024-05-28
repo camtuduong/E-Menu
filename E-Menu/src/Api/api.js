@@ -44,3 +44,10 @@ function searchCart(itemId) {
   });
 }
 export { searchCart };
+
+function addOrder() {
+  return axios.post(`${url}/api/add-order`).catch((error) => {
+    throw error;
+  });
+}
+export { addOrder };

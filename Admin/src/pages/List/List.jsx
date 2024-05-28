@@ -61,7 +61,7 @@ const List = () => {
                   X
                 </button>
                 <Link to={"/update/" + item.id}>
-                  <button className="cursor">Update</button>
+                  <button className="btn-update">Update</button>
                 </Link>
               </div>
             </div>

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodCategoryController;
+use App\Http\Controllers\OrderController;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 /*
@@ -19,6 +21,13 @@ use Illuminate\Http\Response;
 */
 //make health check route
 Route::get('/users/{id?}', [UserController::class, 'userData']);
+
+//table
+Route::get('/table/{id?}', [UserController::class, 'viewTable']);
+Route::post('/add-table',[UserController::class, 'addTable']);
+Route::put('/update-table/{id}', [UserController::class, 'updateTable']);
+Route::delete('/remove-table/{id}', [UserController::class, 'removeTable']);
+
 
 //food api
 Route::get('storage/food/{filename}', function ($filename) {
@@ -51,3 +60,13 @@ Route::get('/cart/{id?}', [CartController::class,'viewCart']);
 Route::post('/add-cart/{itemId}', [CartController::class,'addToCart']);
 Route::delete('/remove-cart/{itemId}', [CartController::class,'removeFromCart']);
 Route::get('/search-cart/{itemId}', [CartController::class,'searchCart']);
+
+
+//Orders
+Route::get('/order/{id?}', [OrderController::class,'viewOrder']);
+Route::post('/add-order/{tableId}', [OrderController::class,'addOrderAndDetail']);
+
+
+//OrderDetail
+Route::get('/order-detail/{id?}', [OrderController::class,'viewOrderDetail']);
+Route::get('/search-order-detail/{orderId}', [OrderController::class,'searchOrderDetailById']);

@@ -45,7 +45,7 @@ const ListCategory = () => {
                   X
                 </button> */}
                 <Link to={"/update-category/" + item.id}>
-                  <button className="cursor">Update</button>
+                  <button className="btn-update">Update</button>
                 </Link>
               </div>
             </div>

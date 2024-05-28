@@ -2,13 +2,6 @@ import axios from "axios";
 
 const API_URL = "http://localhost:9000"; // Thay thế bằng URL API của bạn
 
-// function addFood(data) {
-//   return axios.post(`${API_URL}/api/add-food`, data).catch((error) => {
-//     // console.error(error);
-//     throw error;
-//   });
-// }
-
 function addFood(formData) {
   const config = {
     headers: {
@@ -70,3 +63,48 @@ function updateCategory(formData, categoryId) {
   });
 }
 export { updateCategory };
+
+function searchOrderDetail(orderId) {
+  return axios
+    .get(`${API_URL}/api/search-order-detail/${orderId}`)
+    .catch((error) => {
+      // console.error(error);
+      throw error;
+    });
+}
+
+export { searchOrderDetail };
+
+function addTable(data) {
+  return axios.post(`${API_URL}/api/add-table`, data).catch((error) => {
+    throw error;
+  });
+}
+
+export { addTable };
+
+function viewTable() {
+  return axios.get(`${API_URL}/api/table`).catch((error) => {
+    // console.error(error);
+    throw error;
+  });
+}
+export { viewTable };
+
+function removeTable(id) {
+  return axios.delete(`${API_URL}/api/remove-table/${id}`).catch((error) => {
+    // console.error(error);
+    throw error;
+  });
+}
+
+export { removeTable };
+
+function updateTable(data, id) {
+  return axios.put(`${API_URL}/api/update-table/${id}`, data).catch((error) => {
+    // console.error(error);
+    throw error;
+  });
+}
+
+export { updateTable };
