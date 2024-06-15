@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OrderDetail;
 use App\Models\Orders;
 use App\Models\Carts;
+use App\Models\Table;
 
 use Illuminate\Http\Request;
 use DateTime;
@@ -17,33 +18,17 @@ class OrderController extends Controller
         return $id ? Orders::find($id) : Orders::all();
     }
 
-    public function addOrder(Request $request)
-    {
-        $timezone = new DateTimeZone('Asia/Ho_Chi_Minh');
-
-        // Lấy thông tin đơn hàng từ yêu cầu
-        $userId = $request->input('Table_id');
-        $total = $request->input('Total');
-
-        // Tạo đối tượng đơn hàng mới
-        $order = new Orders();
-        $order->Table_id = $userId;
-        $order->Total = $total;
-        $now = new DateTime('now', $timezone);
-        $order->OrderDate = $now->format('Y-m-d H:i:s');
-
-        // Lưu đơn hàng vào cơ sở dữ liệu
-        $order->save();
-
-        return response()->json(['message' => 'Thêm đơn hàng thành công'], 200);
-    }
 
 public function addOrderAndDetail(Request $request, $tableId)
 {
-    $timezone = new DateTimeZone('Asia/Ho_Chi_Minh');
+    // Kiểm tra tableId có tồn tại
+    $table = Table::find($tableId);
+    if (!$table) {
+        return response()->json(['message' => 'Table not found'], 404);
+    }
 
+    $timezone = new DateTimeZone('Asia/Ho_Chi_Minh');
     // Lấy thông tin đơn hàng từ yêu cầu
-    // $userId = $request->input('Table_id');
     $total = $request->input('Total');
 
     // Tạo đối tượng đơn hàng mới
@@ -81,16 +66,6 @@ public function addOrderAndDetail(Request $request, $tableId)
 
     return response()->json(['message' => 'Thêm đơn hàng thành công'], 200);
 }
-
-    //add OrderDetail
-    //create user = Table_id
-
-
-    //admin
-    //add admin update order va OrderDetail
-    //create table = admin = qr code
-    // Tao table -> co ma Qr code -> quyet ma Qr dang nhap web e-menu
-
 
     //OrderDetail
     public function viewOrderDetail($id=null){

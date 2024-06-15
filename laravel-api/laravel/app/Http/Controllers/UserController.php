@@ -15,6 +15,19 @@ class UserController extends Controller
         return $id ? Users::find($id) : Users::all();
     }
 
+    public function checkEmail( $email)
+    {
+        return Users::where('email', $email)->exists();
+        //  response()->json(['exists' => $exists]);
+    }
+    // public function checkEmailExists(Request $request)
+    // {
+    //     $email = $request->input('email');
+    //     $exists = Users::where('email', $email)->exists();
+
+    //     return response()->json(['exists' => $exists]);
+    // }
+
     //tables
     public function viewTable($id=null){
         return $id ? Table::find($id) : Table::all();
@@ -66,6 +79,9 @@ class UserController extends Controller
         }
     }
 
+    public function searchTable($name){
+        return Table::where("name",$name)->get();
 
+    }
 
 }

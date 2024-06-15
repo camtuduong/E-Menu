@@ -36,6 +36,7 @@ function removeFromCart(itemId) {
 }
 export { removeFromCart };
 
+//tim cart băng id food
 function searchCart(itemId) {
   // Gọi API để xóa sản phẩm khỏi giỏ hàng
   return axios.get(`${url}/api/search-cart/${itemId}`).catch((error) => {
@@ -45,9 +46,16 @@ function searchCart(itemId) {
 }
 export { searchCart };
 
-function addOrder() {
-  return axios.post(`${url}/api/add-order`).catch((error) => {
+function addOrder(data, tableId) {
+  return axios.post(`${url}/api/add-order/${tableId}`, data).catch((error) => {
     throw error;
   });
 }
 export { addOrder };
+
+function searchTableName(name) {
+  return axios.get(`${url}/api/search-table/${name}`).catch((error) => {
+    throw error;
+  });
+}
+export { searchTableName };

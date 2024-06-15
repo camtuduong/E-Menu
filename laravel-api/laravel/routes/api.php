@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AuthController;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
@@ -21,8 +22,15 @@ use Illuminate\Http\Response;
 */
 //make health check route
 Route::get('/users/{id?}', [UserController::class, 'userData']);
+// Route::get('/users', [UserController::class, 'checkEmailExists']);
+Route::get('/search-email/{email}', [UserController::class, 'checkEmail']);
+//Auth
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
 
 //table
+Route::get('/search-table/{name}', [UserController::class, 'searchTable']);
 Route::get('/table/{id?}', [UserController::class, 'viewTable']);
 Route::post('/add-table',[UserController::class, 'addTable']);
 Route::put('/update-table/{id}', [UserController::class, 'updateTable']);
@@ -47,8 +55,8 @@ Route::get('/food/{id?}', [FoodController::class, 'foodList']);
 Route::post('/add-food', [FoodController::class, 'addFood']);
 Route::put('/update-food/{id}', [FoodController::class, 'updateFood']);
 Route::delete('/remove-food/{id}', [FoodController::class, 'removeFood']);
-Route::get('search-food/{name}',[FoodController::class, 'searchFood']);
-Route::get('search-food-categoryId/{categoryId}',[FoodController::class, 'searchFoodByCategory']);
+Route::get('/search-food/{name}',[FoodController::class, 'searchFood']);
+Route::get('/search-food-categoryId/{categoryId}',[FoodController::class, 'searchFoodByCategory']);
 
 //category api
 Route::get('/category/{id?}', [FoodCategoryController::class, 'foodCategory']);

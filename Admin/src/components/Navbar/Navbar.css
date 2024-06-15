@@ -4,10 +4,28 @@
   align-items: center;
   padding: 8px 4%;
 }
-
+.account {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-logout {
+  margin: 0px 10px;
+  border: 1px solid rgb(255, 179, 0);
+  padding: 8px;
+  border-radius: 5px;
+}
+.btn-logout:hover {
+  background-color: rgb(255, 179, 0);
+}
 .navbar .logo {
   width: max(10%, 80px);
 }
 .navbar .profile {
   width: 40px;
+  margin: 5px 10px;
+}
+.dropdown {
+  position: absolute;
+  cursor: pointer;
 }

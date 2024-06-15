@@ -10,7 +10,6 @@ const UpdateTable = () => {
   const url = "http://localhost:9000";
   const [list, setList] = useState([]);
   const { id } = useParams();
-
   const handleChange = (e) => {
     setData({ name: e.target.value });
   };
@@ -79,7 +78,8 @@ const UpdateTable = () => {
         <div className="add-img-upload flex-col">
           <p>QR Code Image</p>
           <label htmlFor="image">
-            <QRCode value={"http://localhost:5174/" + data.name} />
+            {/* <QRCode value={"http://localhost:5174/" + data.name} /> */}
+            <QRCode value={"http://localhost:5174/home/?name=" + data.name} />
           </label>
         </div>
         <div className="add-product-name flex-col">
@@ -97,7 +97,6 @@ const UpdateTable = () => {
           Update
         </button>
       </form>
-
       <div className="list add flex-col">
         <p>All Table List</p>
         <div className="list-table">

@@ -46,6 +46,13 @@ function removeFood(foodId) {
 
 export { removeFood };
 
+function searchFoodById(id) {
+  return axios.get(`${API_URL}/api/food/${id}`).catch((error) => {
+    throw error;
+  });
+}
+export { searchFoodById };
+
 function updateCategory(formData, categoryId) {
   const config = {
     headers: {
@@ -108,3 +115,45 @@ function updateTable(data, id) {
 }
 
 export { updateTable };
+
+//login
+function login(email, password) {
+  const data = {
+    email: email,
+    password: password,
+  };
+
+  return axios.post(`${API_URL}/api/login`, data).catch((error) => {
+    throw error;
+  });
+}
+
+export { login };
+
+function register(name, email, password) {
+  const data = {
+    name: name,
+    email: email,
+    password: password,
+  };
+
+  return axios.post(`${API_URL}/api/register`, data).catch((error) => {
+    throw error;
+  });
+}
+
+export { register };
+
+// function checkEmailExists(email) {
+//   return axios.get(`${API_URL}/api/search-email/${email}`).catch((error) => {
+//     throw error;
+//   });
+// }
+// export { checkEmailExists };
+function checkEmailExists(email) {
+  return axios.get(`/api/search-email/${email}`).catch((error) => {
+    throw error;
+  });
+}
+
+export { checkEmailExists };

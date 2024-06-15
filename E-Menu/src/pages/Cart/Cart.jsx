@@ -6,12 +6,32 @@ import {
   removeFromCart,
   viewFoodById,
   addOrder,
+  searchTableName,
 } from "../../Api/api";
 import { toast } from "react-toastify";
 
-const Cart = () => {
+const Cart = ({ name }) => {
   const [cart, setCart] = useState([]);
   const [foodList, setFoodList] = useState([]);
+  const [order, setOrder] = useState({ Total: "" });
+  const [table, setTable] = useState([]);
+
+  const fetchTable = async () => {
+    try {
+      const response = await searchTableName(name);
+      if (response.status === 200) {
+        setTable(response.data);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("No Table Name.");
+    }
+  };
+  const handleChange = (e) => {
+    setOrder({ Total: e.target.value });
+  };
 
   const fetchCartAndFood = async () => {
     try {
@@ -19,7 +39,7 @@ const Cart = () => {
       console.log(cartResponse);
       if (cartResponse.status === 200 && cartResponse.data.length >= 0) {
         setCart(cartResponse.data);
-        console.log(cartResponse.data);
+        // console.log(cartResponse.data);
         const foodPromises = cartResponse.data.map((cartItem) =>
           viewFoodById(cartItem.item_id)
         );
@@ -30,7 +50,7 @@ const Cart = () => {
           return foodItem;
         });
         setFoodList(foodData);
-        console.log(foodData);
+        // console.log(foodData);
       } else {
         console.log(cartResponse.error);
       }
@@ -60,18 +80,31 @@ const Cart = () => {
 
   const handleAddOrder = async () => {
     try {
-      const response = await addOrder();
-      toast.success("Add success");
-      console.log(response);
+      const totalAmount = getTotalAmount();
+      const updatedOrder = { ...order, Total: totalAmount };
+      const response = await addOrder(updatedOrder, table[0].id);
+      if (response.status === 200) {
+        toast.success("Order successful !! Thanks For Your Order");
+        fetchCartAndFood();
+      } else {
+        toast.error(response.data.message);
+      }
+      // console.log(response);
     } catch (error) {
       console.log(error);
-      toast.error("Error occurred while adding food.");
+      toast.error("You Should Scanned The QR Code Above The Table To Order.");
     }
   };
 
   useEffect(() => {
     fetchCartAndFood();
+    fetchTable();
   }, []);
+  useEffect(() => {
+    if (table.length > 0) {
+      console.log(table[0].id);
+    }
+  }, [table]);
 
   const getSubTotalCartAmount = () => {
     let totalAmount = 0;
@@ -143,7 +176,9 @@ const Cart = () => {
           <hr />
           <div className="cart-total-details">
             <b>Total</b>
-            <b>${getSubTotalCartAmount() === 0 ? 0 : getTotalAmount()}</b>
+            <b onChange={handleChange} value={order.Total}>
+              ${getSubTotalCartAmount() === 0 ? 0 : getTotalAmount()}
+            </b>
           </div>
         </div>
         <div className="cart-promocode">

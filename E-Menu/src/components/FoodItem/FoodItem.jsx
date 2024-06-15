@@ -6,15 +6,11 @@ const FoodItem = ({ id, name, price, description, image }) => {
   const [data, setData] = useState([]);
   const url = "http://localhost:9000";
 
-  //cai de mai lam
-  // api cart tu id_item sau do xem coi quantity co chua neu co thi hien remove khong thi chi hien cai add thoi
-  // them so luong quantity cap nhat cho uI coi nua
-  // lam phan hien thi ben cart nua
-
   const handleAddToCart = async () => {
     try {
       const response = await addToCart(id);
       console.log(response);
+      fetchList();
     } catch (error) {
       console.log(error);
     }
@@ -24,6 +20,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
     try {
       const response = await removeFromCart(id);
       console.log(response);
+      fetchList();
     } catch (error) {
       console.log(error);
     }
@@ -50,14 +47,14 @@ const FoodItem = ({ id, name, price, description, image }) => {
           src={new URL(image, url).toString()}
           alt=""
         />
-        {data ? (
+        {data.length > 0 ? (
           <div className="food-item-counter">
             <img
               onClick={handleRemoveFromCart}
               src={assets.remove_icon_red}
               alt="Remove"
             />
-            <p>{data.quantity}</p>
+            <p>{data[0].quantity}</p>
             <img
               onClick={handleAddToCart}
               src={assets.add_icon_green}

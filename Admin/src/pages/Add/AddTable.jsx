@@ -70,7 +70,8 @@ const AddTable = () => {
         <div className="add-img-upload flex-col">
           <p>QR Code Image</p>
           <label htmlFor="image">
-            <QRCode value={"http://localhost:5174/home/" + data.id} />
+            {/* <QRCode value={`http://localhost:5174/home/?name=${data.name}`} /> */}
+            <QRCode value={"http://localhost:5174/home/?name=" + data.name} />
           </label>
         </div>
         <div className="add-product-name flex-col">
