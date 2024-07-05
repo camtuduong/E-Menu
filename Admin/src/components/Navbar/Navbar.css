@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 4%;
+  border-bottom: 1px solid black;
 }
 .account {
   display: flex;
@@ -28,4 +29,13 @@
 .dropdown {
   position: absolute;
   cursor: pointer;
+  background-color: tomato;
+  padding: 10px;
+  border-radius: 5px;
+}
+.dropdown-menu {
+}
+.dropdown-item:hover {
+  background-color: aliceblue;
+  border-radius: 3px;
 }

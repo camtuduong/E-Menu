@@ -30,8 +30,8 @@ function Login({ setIsLoggedIn }) {
 
   return (
     <div className="form-container sign-in-container">
-      <form onSubmit={handleLogin}>
-        <div className="title">Sign in</div>
+      <form onSubmit={handleLogin} className="form-sign">
+        <div className="title-sign">Sign in</div>
         <label htmlFor="email">E-mail:</label>
         <input
           type="email"

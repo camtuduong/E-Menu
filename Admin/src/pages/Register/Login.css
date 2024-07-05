@@ -7,7 +7,7 @@
   height: 100vh;
 }
 
-form {
+.form-sign {
   width: 100%;
   max-width: 400px;
   padding: 20px;
@@ -17,14 +17,14 @@ form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.title {
+.title-sign {
   margin-bottom: 20px;
   text-align: center;
   font-size: 50px;
   font-weight: bold;
 }
 
-label {
+.form-group label {
   font-weight: bold;
 }
 input[type="text"],

@@ -1,30 +1,3 @@
-// import React from "react";
-// import "./Navbar.css";
-// import { assets } from "../../assets/assets";
-// import { useNavigate } from "react-router-dom";
-
-// const Navbar = ({ handleLogout }) => {
-//   const navigate = useNavigate();
-
-//   const handleLogoutClick = () => {
-//     handleLogout(); // Gọi hàm handleLogout trong props
-//     navigate("/login");
-//   };
-
-//   return (
-//     <div className="navbar">
-//       <img className="logo" src={assets.logo} alt="" />
-//       <div className="account">
-//         <button className="btn-logout" onClick={handleLogoutClick}>
-//           Log Out
-//         </button>
-//         <img className="profile" src={assets.profile_image} alt="" />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Navbar;
 import React, { useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
